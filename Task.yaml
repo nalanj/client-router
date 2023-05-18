@@ -7,7 +7,13 @@ env:
 
 tasks:
   test:
-    desc: Run tests
+    desc: Run all tests
+    deps:
+      - test:unit
+      - test:integration
+
+  test:unit:
+    desc: Run unit tests
     deps:
       - :npm:install
     cmds:
@@ -15,7 +21,7 @@ tasks:
     env:
       NODE_ENV: test
 
-  integration:
+  test:integration:
     desc: Run integration tests
     deps:
       - :npm:install

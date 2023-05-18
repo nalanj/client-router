@@ -4,6 +4,12 @@ import { ClientRouter } from "./index.js";
 
 const fakeWindow = {
   addEventListener: () => null,
+  location: {
+    origin: "http://localhost:0",
+  },
+  history: {
+    pushState: () => null,
+  },
 };
 
 test("push calls callback", () => {
