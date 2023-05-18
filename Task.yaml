@@ -1,0 +1,45 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+  PORT: 31001
+
+tasks:
+  test:
+    desc: Run tests
+    deps:
+      - :npm:install
+    cmds:
+      - node --test --enable-source-maps {{.CLI_ARGS}}
+    env:
+      NODE_ENV: test
+
+  integration:
+    desc: Run integration tests
+    deps:
+      - :npm:install
+    cmds:
+      - npx playwright test {{.CLI_ARGS}}
+
+  dev:
+    desc: Start dev server
+    deps:
+      - :npm:install
+    cmds:
+      - npx serve
+
+  lint:
+    deps:
+      - :npm:install
+    desc: Lint the app
+    cmds:
+      - npx eslint --ext .js --ext .jsx .
+
+  fix:
+    desc: Lint the app and fix anything that can be automatically fixed
+    deps:
+      - :npm:install
+    cmds:
+      - npx eslint --ext .js --ext .jsx --fix .
+

@@ -1,0 +1,14 @@
+{
+  "name": "@with-cardinal/client-router",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "index.js",
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.33.0",
+    "eslint-config-browser": "*",
+    "serve": "14.2.0"
+  }
+}
