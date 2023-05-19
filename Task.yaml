@@ -48,4 +48,3 @@ tasks:
       - :npm:install
     cmds:
       - npx eslint --ext .js --ext .jsx --fix .
-
