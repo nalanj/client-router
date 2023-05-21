@@ -2,9 +2,6 @@
 
 version: "3"
 
-env:
-  PORT: 31001
-
 tasks:
   test:
     desc: Run all tests
@@ -33,7 +30,7 @@ tasks:
     deps:
       - :npm:install
     cmds:
-      - npx serve
+      - npx serve -p 31001
 
   lint:
     deps:
