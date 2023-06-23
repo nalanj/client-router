@@ -5,7 +5,7 @@
  * @param {string} url - the url to replace the current url with
  */
 export function replace(url) {
-  loadDocument(url);
+  return loadDocument(url);
 }
 
 async function loadDocument(href) {
@@ -17,6 +17,8 @@ async function loadDocument(href) {
 
   mergeBody(newDoc);
   mergeHeaders(newDoc);
+
+  return true;
 }
 
 function mergeBody(newDoc) {
@@ -46,16 +48,20 @@ function mergeHeaders(newDoc) {
       document.head.removeChild(element);
     } else {
       matches.forEach((match) => {
-        newDoc.head.removeChild(match);
+        try {
+          newDoc.head.removeChild(match);
+        } catch {
+          // if no match, ignore
+        }
       });
     }
+  }
 
-    for (const element of newDoc.head.children) {
-      if (element.tagName === "TITLE") {
-        document.title = newDoc.title;
-      } else {
-        document.head.appendChild(element);
-      }
+  for (const element of newDoc.head.children) {
+    if (element.tagName === "TITLE") {
+      document.title = newDoc.title;
+    } else {
+      document.head.appendChild(element);
     }
   }
 }

@@ -8,6 +8,7 @@ export class Link extends Component {
   }
 
   onClick(evt) {
-    this.opts.router.push(evt.target.href);
+    evt.preventDefault();
+    this.opts.router.push(this.element.href);
   }
 }
