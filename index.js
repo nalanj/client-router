@@ -11,11 +11,18 @@ export class ClientRouter {
   }
 
   push(path) {
-    const url = new URL(path, this.window.location.origin);
-    const result = this.onChange(url, true);
+    const newUrl = new URL(path, this.window.location.origin);
+
+    const currentUrl = new URL(this.window.document.location.href);
+
+    if (newUrl.toString() === currentUrl.toString()) {
+      return;
+    }
+
+    const result = this.onChange(newUrl, true);
 
     if (result !== false) {
-      this.window.history.pushState(null, "", new URL(url));
+      this.window.history.pushState(null, "", new URL(newUrl));
     }
   }
 }
