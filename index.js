@@ -13,7 +13,7 @@ export class ClientRouter {
   push(path) {
     const newUrl = new URL(path, this.window.location.origin);
 
-    const currentUrl = new URL(this.window.document.location.href);
+    const currentUrl = new URL(this.window.location.href);
 
     if (newUrl.toString() === currentUrl.toString()) {
       return;

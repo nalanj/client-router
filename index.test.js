@@ -6,6 +6,7 @@ const fakeWindow = {
   addEventListener: () => null,
   location: {
     origin: "http://localhost:0",
+    href: "http://localhost:0/whatever",
   },
   history: {
     pushState: () => null,
