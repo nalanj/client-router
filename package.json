@@ -10,8 +10,5 @@
     "@playwright/test": "1.35.1",
     "eslint-config-browser": "*",
     "serve": "14.2.0"
-  },
-  "dependencies": {
-    "@with-cardinal/featurette": "*"
   }
 }
