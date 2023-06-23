@@ -19,3 +19,5 @@ export class ClientRouter {
     }
   }
 }
+
+export { replace } from "./replace.js";
