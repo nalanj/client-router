@@ -21,3 +21,4 @@ export class ClientRouter {
 }
 
 export { replace } from "./replace.js";
+export { Link } from "./link.js";
