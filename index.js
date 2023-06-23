@@ -13,6 +13,12 @@ export class ClientRouter {
   push(path) {
     const newUrl = new URL(path, this.window.location.origin);
 
+    // just set window.location if the new url isn't part of this origin
+    if (newUrl.origin !== this.window.location.origin) {
+      this.window.location = newUrl;
+      return;
+    }
+
     const currentUrl = new URL(this.window.location.href);
 
     if (newUrl.toString() === currentUrl.toString()) {
@@ -27,4 +33,4 @@ export class ClientRouter {
   }
 }
 
-export { replace } from "./replace.js";
+export { replace, replaceDocument } from "./replace.js";

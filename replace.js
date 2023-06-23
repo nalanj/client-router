@@ -11,14 +11,23 @@ export function replace(url) {
 async function loadDocument(href) {
   const resp = await fetch(href);
 
+  await replaceDocument(resp);
+
+  return true;
+}
+
+/**
+ * Replace a document with a response's content
+ *
+ * @param {Response} resp - fetch response
+ */
+export async function replaceDocument(resp) {
   const html = await resp.text();
   const parser = new DOMParser();
   const newDoc = parser.parseFromString(html, "text/html");
 
   mergeBody(newDoc);
   mergeHeaders(newDoc);
-
-  return true;
 }
 
 function mergeBody(newDoc) {
