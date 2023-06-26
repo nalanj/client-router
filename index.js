@@ -28,6 +28,7 @@ export class ClientRouter {
     const result = this.onChange(newUrl, true);
 
     if (result !== false) {
+      this.window.scrollTo(0, 0);
       this.window.history.pushState(null, "", new URL(newUrl));
     }
   }
