@@ -11,6 +11,7 @@ const fakeWindow = {
   history: {
     pushState: () => null,
   },
+  scrollTo: () => null,
 };
 
 test("push calls callback", () => {
