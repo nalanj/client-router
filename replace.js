@@ -48,12 +48,15 @@ function mergeHeaders(newDoc) {
       continue;
     }
 
+    const sticky = element.hasAttribute("data-client-router-sticky");
+    console.log("STICKY", element.attributes);
+
     const matches = newChildren.filter((newChild) =>
       newChild.isEqualNode(element)
     );
 
     // if it's not in the new head, remove it from head
-    if (matches.length === 0) {
+    if (matches.length === 0 && !sticky) {
       document.head.removeChild(element);
     } else {
       matches.forEach((match) => {
