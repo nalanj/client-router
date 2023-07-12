@@ -49,7 +49,6 @@ function mergeHeaders(newDoc) {
     }
 
     const sticky = element.hasAttribute("data-client-router-sticky");
-    console.log("STICKY", element.attributes);
 
     const matches = newChildren.filter((newChild) =>
       newChild.isEqualNode(element)
