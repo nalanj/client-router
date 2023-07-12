@@ -25,7 +25,11 @@ export class ClientRouter {
       return;
     }
 
-    const result = this.onChange(newUrl, true);
+    this.change(newUrl);
+  }
+
+  async change(newUrl) {
+    const result = await this.onChange(newUrl, true);
 
     if (result !== false) {
       this.window.scrollTo(0, 0);

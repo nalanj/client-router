@@ -4,7 +4,7 @@
  *
  * @param {string} url - the url to replace the current url with
  */
-export function replace(url) {
+export async function replace(url) {
   return loadDocument(url);
 }
 
