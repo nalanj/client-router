@@ -1,3 +1,13 @@
+function debounce(fn, timeout = 200) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(this, args);
+    }, timeout);
+  };
+}
+
 export class ClientRouter {
   window;
 
@@ -13,13 +23,16 @@ export class ClientRouter {
       }
     });
 
-    this.window.addEventListener("scroll", function () {
-      this.window.history.replaceState(
-        { scrollPos: [this.window.scrollX, this.window.scrollY] },
-        "",
-        this.window.location.href
-      );
-    });
+    this.window.addEventListener(
+      "scroll",
+      debounce(function () {
+        this.window.history.replaceState(
+          { scrollPos: [this.window.scrollX, this.window.scrollY] },
+          "",
+          this.window.location.href
+        );
+      })
+    );
   }
 
   push(path) {
