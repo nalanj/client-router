@@ -41,8 +41,6 @@ export class ClientRouter {
   }
 
   async change(newUrl) {
-    this.recordScrollPos();
-
     const result = await this.onChange(newUrl, true);
 
     if (result !== false) {
