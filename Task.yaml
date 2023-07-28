@@ -31,17 +31,3 @@ tasks:
       - :npm:install
     cmds:
       - npx serve -p 31001
-
-  lint:
-    deps:
-      - :npm:install
-    desc: Lint the app
-    cmds:
-      - npx eslint --ext .js --ext .jsx .
-
-  fix:
-    desc: Lint the app and fix anything that can be automatically fixed
-    deps:
-      - :npm:install
-    cmds:
-      - npx eslint --ext .js --ext .jsx --fix .
