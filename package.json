@@ -7,8 +7,12 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
-    "@playwright/test": "1.36.2",
+    "@playwright/test": "1.37.0",
     "eslint-config-browser": "*",
     "serve": "14.2.0"
+  },
+  "dependencies": {
+    "@with-cardinal/cardinal-marketing": "0.0.0",
+    "hatmel": "1.1.0"
   }
 }
