@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "@with-cardinal/cardinal-marketing": "0.0.0",
-    "hatmel": "1.1.0"
+    "@with-cardinal/hatmel": "0.0.0"
   }
 }
