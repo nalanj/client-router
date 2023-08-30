@@ -15,14 +15,15 @@ const fakeWindow = {
 };
 
 test("push calls callback", () => {
-  const router = new ClientRouter(fakeWindow);
+  ClientRouter.window = fakeWindow;
 
   let called = false;
-  router.onChange = () => {
+  ClientRouter.onChange = () => {
     called = true;
   };
 
-  router.push("/foobar");
+  ClientRouter.start();
+  ClientRouter.push("/foobar");
 
   assert.equal(called, true);
 });

@@ -9,12 +9,10 @@ function debounce(fn, timeout = 200) {
 }
 
 export class ClientRouter {
-  window;
+  static window = globalThis;
+  static onChange = async () => true;
 
-  constructor(_window = globalThis) {
-    this.window = _window;
-    this.onChange = async () => true;
-
+  static start() {
     this.window.addEventListener("popstate", async (evt) => {
       await this.onChange(new URL(this.window.document.location.href), false);
 
@@ -27,7 +25,9 @@ export class ClientRouter {
       "scroll",
       debounce(function () {
         this.window.history.replaceState(
-          { scrollPos: [this.window.scrollX, this.window.scrollY] },
+          {
+            scrollPos: [this.window.scrollX, this.window.scrollY],
+          },
           "",
           this.window.location.href
         );
@@ -35,7 +35,7 @@ export class ClientRouter {
     );
   }
 
-  push(path) {
+  static push(path) {
     const newUrl = new URL(path, this.window.location.origin);
 
     // just set window.location if the new url isn't part of this origin
@@ -53,7 +53,7 @@ export class ClientRouter {
     this.change(newUrl);
   }
 
-  async change(newUrl) {
+  static async change(newUrl) {
     const result = await this.onChange(newUrl, true);
 
     if (result !== false) {

@@ -1,15 +1,15 @@
 import { ClientRouter } from "/index.js";
 
-const router = new ClientRouter();
-router.onChange = (url) => {
+ClientRouter.onChange = (url) => {
   console.log(url);
   document.querySelector("h1").innerText = url.pathname;
 };
+ClientRouter.start();
 
 document.querySelector("#link").addEventListener("click", (evt) => {
   evt.preventDefault();
 
-  router.push("/there");
+  ClientRouter.push("/there");
 });
 
 console.log("READY");
