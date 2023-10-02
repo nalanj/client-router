@@ -1,7 +1,6 @@
 import { ClientRouter } from "/index.js";
 
 ClientRouter.onChange = (url) => {
-  console.log(url);
   document.querySelector("h1").innerText = url.pathname;
 };
 ClientRouter.start();
