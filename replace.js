@@ -13,7 +13,7 @@ async function loadDocument(href) {
 
   await replaceDocument(resp);
 
-  return true;
+  return resp.url;
 }
 
 /**

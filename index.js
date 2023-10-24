@@ -12,12 +12,23 @@ export class ClientRouter {
   static window = globalThis;
   static onChange = async () => true;
 
-  static start() {
+  static async start() {
     this.window.addEventListener("popstate", async (evt) => {
-      await this.onChange(new URL(this.window.document.location.href), false);
+      const to = new URL(this.window.document.location.href);
+      const url = await this.onChange(to);
 
       if (evt.state?.scrollPos) {
         this.window.scrollTo(evt.state.scrollPos[0], evt.state.scrollPos[1]);
+      }
+
+      if (url !== to) {
+        this.window.history.replaceState(
+          {
+            scrollPos: [this.window.scrollX, this.window.scrollY],
+          },
+          "",
+          url
+        );
       }
     });
 
@@ -54,10 +65,10 @@ export class ClientRouter {
   }
 
   static async change(newUrl) {
-    const result = await this.onChange(newUrl, true);
+    const url = await this.onChange(newUrl);
 
-    if (result !== false) {
-      this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(newUrl));
+    if (url !== false) {
+      this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
       this.window.scrollTo(0, 0);
     }
   }

@@ -14,15 +14,17 @@ const fakeWindow = {
   scrollTo: () => null,
 };
 
-test("push calls callback", () => {
+test("push calls callback", async () => {
   ClientRouter.window = fakeWindow;
 
   let called = false;
-  ClientRouter.onChange = () => {
+  ClientRouter.onChange = (newUrl) => {
     called = true;
+
+    return newUrl;
   };
 
-  ClientRouter.start();
+  await ClientRouter.start();
   ClientRouter.push("/foobar");
 
   assert.equal(called, true);
