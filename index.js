@@ -65,11 +65,17 @@ export class ClientRouter {
   }
 
   static async change(newUrl) {
-    const url = await this.onChange(newUrl);
+    try {
+      const url = await this.onChange(newUrl);
 
-    if (url !== false) {
-      this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
-      this.window.scrollTo(0, 0);
+      if (url !== false) {
+        this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
+        this.window.scrollTo(0, 0);
+      }
+    } catch (e) {
+      // if an error occurs loading, just set the window location
+      this.window.location = newUrl;
+      throw e;
     }
   }
 }
