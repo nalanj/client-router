@@ -78,6 +78,11 @@ export class ClientRouter {
       throw e;
     }
   }
+
+  static async pushUrl(url) {
+    this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
+    this.window.scrollTo(0, 0);
+  }
 }
 
 export { replace, replaceDocument } from "./replace.js";
