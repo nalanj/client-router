@@ -43,7 +43,7 @@ function mergeBody(newDoc) {
 function mergeHeaders(newDoc) {
   const newChildren = Array.from(newDoc.head.children);
 
-  for (const element of document.head.children) {
+  for (const element of Array.from(document.head.children)) {
     if (element.tagName === "TITLE") {
       continue;
     }
