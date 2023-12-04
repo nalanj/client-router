@@ -68,7 +68,7 @@ function mergeHeaders(newDoc) {
     }
   }
 
-  for (const element of newDoc.head.children) {
+  for (const element of Array.from(newDoc.head.children)) {
     if (element.tagName === "TITLE") {
       document.title = newDoc.title;
     } else {
