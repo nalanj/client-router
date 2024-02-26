@@ -35,6 +35,8 @@ function mergeBody(newDoc) {
     document.body.removeChild(document.body.firstChild);
   }
 
+  document.body.classList = newDoc.body.classList;
+
   for (const element of Array.from(newDoc.body.childNodes)) {
     document.body.appendChild(element);
   }
