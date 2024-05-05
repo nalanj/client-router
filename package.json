@@ -9,7 +9,7 @@
   "devDependencies": {
     "@playwright/test": "1.43.1",
     "eslint-config-browser": "*",
-    "serve": "14.2.2"
+    "serve": "14.2.3"
   },
   "dependencies": {
     "@with-cardinal/cardinal-marketing": "*",
