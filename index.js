@@ -1,88 +1,103 @@
 function debounce(fn, timeout = 200) {
-  let timer;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      fn.apply(this, args);
-    }, timeout);
-  };
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+			fn.apply(this, args);
+		}, timeout);
+	};
 }
 
+// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ClientRouter {
-  static window = globalThis;
-  static onChange = async () => true;
+	static window = globalThis;
+	static onChange = async () => true;
 
-  static async start() {
-    this.window.addEventListener("popstate", async (evt) => {
-      const to = new URL(this.window.document.location.href);
-      const url = await this.onChange(to);
+	static async start() {
+		ClientRouter.window.addEventListener("popstate", async (evt) => {
+			const to = new URL(ClientRouter.window.document.location.href);
+			const url = await ClientRouter.onChange(to);
 
-      if (evt.state?.scrollPos) {
-        this.window.scrollTo(evt.state.scrollPos[0], evt.state.scrollPos[1]);
-      }
+			if (evt.state?.scrollPos) {
+				ClientRouter.window.scrollTo(
+					evt.state.scrollPos[0],
+					evt.state.scrollPos[1],
+				);
+			}
 
-      if (url !== to) {
-        this.window.history.replaceState(
-          {
-            scrollPos: [this.window.scrollX, this.window.scrollY],
-          },
-          "",
-          url
-        );
-      }
-    });
+			if (url !== to) {
+				ClientRouter.window.history.replaceState(
+					{
+						scrollPos: [
+							ClientRouter.window.scrollX,
+							ClientRouter.window.scrollY,
+						],
+					},
+					"",
+					url,
+				);
+			}
+		});
 
-    this.window.addEventListener(
-      "scroll",
-      debounce(function () {
-        this.window.history.replaceState(
-          {
-            scrollPos: [this.window.scrollX, this.window.scrollY],
-          },
-          "",
-          this.window.location.href
-        );
-      })
-    );
-  }
+		ClientRouter.window.addEventListener(
+			"scroll",
+			debounce(function () {
+				this.window.history.replaceState(
+					{
+						scrollPos: [this.window.scrollX, this.window.scrollY],
+					},
+					"",
+					this.window.location.href,
+				);
+			}),
+		);
+	}
 
-  static push(path) {
-    const newUrl = new URL(path, this.window.location.origin);
+	static push(path) {
+		const newUrl = new URL(path, ClientRouter.window.location.origin);
 
-    // just set window.location if the new url isn't part of this origin
-    if (newUrl.origin !== this.window.location.origin) {
-      this.window.location = newUrl;
-      return;
-    }
+		// just set window.location if the new url isn't part of this origin
+		if (newUrl.origin !== ClientRouter.window.location.origin) {
+			ClientRouter.window.location = newUrl;
+			return;
+		}
 
-    const currentUrl = new URL(this.window.location.href);
+		const currentUrl = new URL(ClientRouter.window.location.href);
 
-    if (newUrl.toString() === currentUrl.toString()) {
-      return;
-    }
+		if (newUrl.toString() === currentUrl.toString()) {
+			return;
+		}
 
-    this.change(newUrl);
-  }
+		ClientRouter.change(newUrl);
+	}
 
-  static async change(newUrl) {
-    try {
-      const url = await this.onChange(newUrl);
+	static async change(newUrl) {
+		try {
+			const url = await ClientRouter.onChange(newUrl);
 
-      if (url !== false) {
-        this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
-        this.window.scrollTo(0, 0);
-      }
-    } catch (e) {
-      // if an error occurs loading, just set the window location
-      this.window.location = newUrl;
-      throw e;
-    }
-  }
+			if (url !== false) {
+				ClientRouter.window.history.pushState(
+					{ scrollPos: [0, 0] },
+					"",
+					new URL(url),
+				);
+				ClientRouter.window.scrollTo(0, 0);
+			}
+		} catch (e) {
+			// if an error occurs loading, just set the window location
+			ClientRouter.window.location = newUrl;
+			throw e;
+		}
+	}
 
-  static async pushUrl(url) {
-    this.window.history.pushState({ scrollPos: [0, 0] }, "", new URL(url));
-    this.window.scrollTo(0, 0);
-  }
+	static async pushUrl(url) {
+		ClientRouter.window.history.pushState(
+			{ scrollPos: [0, 0] },
+			"",
+			new URL(url),
+		);
+		ClientRouter.window.scrollTo(0, 0);
+	}
 }
 
 export { replace, replaceDocument } from "./replace.js";

@@ -1,16 +1,16 @@
 import { ClientRouter } from "/index.js";
 
 ClientRouter.onChange = (url) => {
-  document.querySelector("h1").innerText = url.pathname;
+	document.querySelector("h1").innerText = url.pathname;
 
-  return url;
+	return url;
 };
 ClientRouter.start();
 
 document.querySelector("#link").addEventListener("click", (evt) => {
-  evt.preventDefault();
+	evt.preventDefault();
 
-  ClientRouter.push("/there");
+	ClientRouter.push("/there");
 });
 
 console.log("READY");
