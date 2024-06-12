@@ -74,7 +74,7 @@ export class ClientRouter {
 
 		if (newWithoutHash.toString() === currentUrl.toString()) {
 			if (currentHash !== newUrl.hash) {
-				ClientRouter.window.history.replaceState(null, "", newUrl.hash);
+				ClientRouter.window.history.replaceState(null, "", newUrl.toString());
 			}
 
 			return;
