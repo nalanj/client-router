@@ -8,7 +8,7 @@ function debounce(fn, timeout = 200) {
 	};
 }
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
+// biome-ignore lint/complexity/noStaticOnlyClass: Just how this is built
 export class ClientRouter {
 	static window = globalThis;
 	static onChange = async () => true;
@@ -25,7 +25,10 @@ export class ClientRouter {
 				);
 			}
 
-			if (url !== to) {
+			const toWithoutHash = new URL(to.toString());
+			toWithoutHash.hash = "";
+
+			if (url.toString() !== toWithoutHash.toString()) {
 				ClientRouter.window.history.replaceState(
 					{
 						scrollPos: [
@@ -63,8 +66,17 @@ export class ClientRouter {
 		}
 
 		const currentUrl = new URL(ClientRouter.window.location.href);
+		const currentHash = currentUrl.hash;
+		currentUrl.hash = "";
 
-		if (newUrl.toString() === currentUrl.toString()) {
+		const newWithoutHash = new URL(newUrl.toString());
+		newWithoutHash.hash = "";
+
+		if (newWithoutHash.toString() === currentUrl.toString()) {
+			if (currentHash !== newUrl.hash) {
+				ClientRouter.window.history.replaceState(null, "", newUrl.hash);
+			}
+
 			return;
 		}
 

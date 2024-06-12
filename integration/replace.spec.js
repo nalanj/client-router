@@ -19,3 +19,13 @@ test("navigates forward and back", async ({ page }) => {
 	await expect(page).toHaveURL("/integration/replace");
 	await expect(page.getByRole("heading", { name: "Hi there" })).toBeVisible();
 });
+
+test("handles hash links", async ({ page }) => {
+	await page.goto("/integration/replace");
+
+	await expect(page.getByRole("heading", { name: "Hi there" })).toBeVisible();
+
+	await page.getByRole("link", { name: "Hash" }).click();
+
+	await expect(page).toHaveURL("/integration/replace#hash");
+});
