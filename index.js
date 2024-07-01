@@ -57,6 +57,14 @@ export class ClientRouter {
 	}
 
 	static push(path) {
+		ClientRouter.pushOrReplace(path, false);
+	}
+
+	static replace(path) {
+		ClientRouter.pushOrReplace(path, true);
+	}
+
+	static pushOrReplace(path) {
 		const newUrl = new URL(path, ClientRouter.window.location.origin);
 
 		// just set window.location if the new url isn't part of this origin
@@ -83,16 +91,25 @@ export class ClientRouter {
 		ClientRouter.change(newUrl);
 	}
 
-	static async change(newUrl) {
+	static async change(newUrl, replace = false) {
 		try {
 			const url = await ClientRouter.onChange(newUrl);
 
 			if (url !== false) {
-				ClientRouter.window.history.pushState(
-					{ scrollPos: [0, 0] },
-					"",
-					new URL(url),
-				);
+				if (replace) {
+					ClientRouter.window.history.replaceState(
+						{ scrollPos: [0, 0] },
+						"",
+						new URL(url),
+					);
+				} else {
+					ClientRouter.window.history.pushState(
+						{ scrollPos: [0, 0] },
+						"",
+						new URL(url),
+					);
+				}
+
 				ClientRouter.window.scrollTo(0, 0);
 			}
 		} catch (e) {
