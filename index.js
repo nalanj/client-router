@@ -56,15 +56,15 @@ export class ClientRouter {
 		);
 	}
 
-	static push(path) {
-		ClientRouter.pushOrReplace(path, false);
+	static push(path, forceFetch = false) {
+		ClientRouter.pushOrReplace(path, forceFetch);
 	}
 
-	static replace(path) {
-		ClientRouter.pushOrReplace(path, true);
+	static replace(path, forceFetch = false) {
+		ClientRouter.pushOrReplace(path, forceFetch);
 	}
 
-	static pushOrReplace(path) {
+	static pushOrReplace(path, forceFetch = false) {
 		const newUrl = new URL(path, ClientRouter.window.location.origin);
 
 		// just set window.location if the new url isn't part of this origin
@@ -80,7 +80,7 @@ export class ClientRouter {
 		const newWithoutHash = new URL(newUrl.toString());
 		newWithoutHash.hash = "";
 
-		if (newWithoutHash.toString() === currentUrl.toString()) {
+		if (newWithoutHash.toString() === currentUrl.toString() && !forceFetch) {
 			if (currentHash !== newUrl.hash) {
 				ClientRouter.window.history.replaceState(null, "", newUrl.toString());
 			}
