@@ -7,7 +7,7 @@
 		"extends": "../../package.json"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.45.1",
+		"@playwright/test": "1.45.3",
 		"eslint-config-browser": "*",
 		"serve": "14.2.3"
 	},
