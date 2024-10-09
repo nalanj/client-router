@@ -56,15 +56,15 @@ export class ClientRouter {
 		);
 	}
 
-	static push(path, forceFetch = false) {
-		ClientRouter.pushOrReplace(path, forceFetch);
+	static push(path, forceFetch = false, scroll = true) {
+		ClientRouter.pushOrReplace(path, false, forceFetch, scroll);
 	}
 
-	static replace(path, forceFetch = false) {
-		ClientRouter.pushOrReplace(path, forceFetch);
+	static replace(path, forceFetch = false, scroll = true) {
+		ClientRouter.pushOrReplace(path, true, forceFetch, scroll);
 	}
 
-	static pushOrReplace(path, forceFetch = false) {
+	static pushOrReplace(path, replace, forceFetch = false, scroll = true) {
 		const newUrl = new URL(path, ClientRouter.window.location.origin);
 
 		// just set window.location if the new url isn't part of this origin
@@ -88,10 +88,10 @@ export class ClientRouter {
 			return;
 		}
 
-		ClientRouter.change(newUrl);
+		ClientRouter.change(newUrl, replace, scroll);
 	}
 
-	static async change(newUrl, replace = false) {
+	static async change(newUrl, replace = false, scroll = true) {
 		try {
 			const url = await ClientRouter.onChange(newUrl);
 
@@ -110,7 +110,9 @@ export class ClientRouter {
 					);
 				}
 
-				ClientRouter.window.scrollTo(0, 0);
+				if (scroll) {
+					ClientRouter.window.scrollTo(0, 0);
+				}
 			}
 		} catch (e) {
 			// if an error occurs loading, just set the window location
