@@ -4,7 +4,7 @@
 	"version": "0.0.0",
 	"main": "index.js",
 	"scripts": {
-		"postinstall": "playwright install",
+		"postinstall": "playwright install --with-deps",
 		"test": "playwright test",
 		"start": "serve -p 31001"
 	},
