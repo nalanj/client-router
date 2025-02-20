@@ -1,0 +1,33 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  test:
+    desc: Run all tests
+    deps:
+      - test:unit
+      - test:integration
+
+  test:unit:
+    desc: Run unit tests
+    deps:
+      - :npm:install
+    cmds:
+      - node --test --enable-source-maps {{.CLI_ARGS}}
+    env:
+      NODE_ENV: test
+
+  test:integration:
+    desc: Run integration tests
+    deps:
+      - :npm:install
+    cmds:
+      - npx playwright test {{.CLI_ARGS}}
+
+  dev:
+    desc: Start dev server
+    deps:
+      - :npm:install
+    cmds:
+      - npx serve -p 31001
