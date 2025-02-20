@@ -1,18 +1,21 @@
 {
-	"name": "@with-cardinal/client-router",
+	"name": "@nalanj/client-router",
 	"type": "module",
 	"version": "0.0.0",
 	"main": "index.js",
-	"volta": {
-		"extends": "../../package.json"
+	"scripts": {
+		"postinstall": "playwright install",
+		"test": "playwright test",
+		"start": "serve -p 31001"
 	},
 	"devDependencies": {
 		"@playwright/test": "1.49.1",
-		"eslint-config-browser": "*",
+		"@biomejs/biome": "1.9.4",
+		"playwright": "1.49.1",
 		"serve": "14.2.4"
 	},
-	"dependencies": {
-		"@with-cardinal/cardinal-marketing": "*",
-		"@with-cardinal/hatmel": "*"
-	}
+	"volta": {
+		"node": "22.6.0"
+	},
+	"files": ["index.js", "replace.js"]
 }
