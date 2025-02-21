@@ -2,12 +2,12 @@ name: Test
 
 on: 
   push:
+    branches:
+      - '**'
     paths-ignore:
       - README.md
       - LICENSE
       - .gitignore
-    tags-ignore:
-      - '**'
 
   
 
