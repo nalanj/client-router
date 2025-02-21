@@ -24,12 +24,12 @@ jobs:
       - run: npm version "${{ github.event.release.tag_name }}" --no-git-tag-version
 
       
-      - run:  npm publish --provenance
+      - run:  npm publish --access public
         if: !github.event.release.prerelease
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: npm publish --provenance --tag next
+      - run: npm publish --access public --tag next
         if: github.event.release.prerelease
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
