@@ -1,7 +1,7 @@
 {
 	"name": "@nalanj/client-router",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"main": "index.js",
 	"scripts": {
 		"playwright:install": "playwright install --with-deps",
@@ -17,8 +17,5 @@
 	"volta": {
 		"node": "22.6.0"
 	},
-	"files": [
-		"index.js",
-		"replace.js"
-	]
+	"files": ["index.js", "replace.js"]
 }
