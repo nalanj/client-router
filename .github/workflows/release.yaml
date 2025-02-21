@@ -22,12 +22,12 @@ jobs:
       - run: npm ci
 
       
-      - run:  npm publish
+      - run:  npm publish --provenance
         if: "!github.event.release.prerelease"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: npm publish --tag next
+      - run: npm publish --provenance --tag next
         if: "github.event.release.prerelease"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
