@@ -6,6 +6,8 @@ on:
       - README.md
       - LICENSE
       - .gitignore
+    tags-ignore:
+      - '**'
 
   
 
